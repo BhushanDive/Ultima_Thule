@@ -32,50 +32,42 @@ int main(void)
     // Update  TODO: Update your variables here
         
         // Draw
-    BeginDrawing();
+BeginDrawing();
    
-        ClearBackground(WHITE);
+    ClearBackground(WHITE);
+    DrawFPS(10, 10);
 
-            DrawFPS(10, 10);
+    if (mainMenu)
+    {
+      backButton = false;
+      campaignButton = GuiToggle((Rectangle){200, 150, 100, 50},"Campaign", campaignButton);       //Campaign Button Drawing
+      customButton = GuiToggle((Rectangle){200, 300, 100, 50},"Custom", customButton);             //Custom Button Drawing
+      settingsButton = GuiToggle((Rectangle){200, 450, 100, 50},"Settings", settingsButton);       //Settings Button Drawing 
+      quitButton = GuiToggle((Rectangle){200, 600, 100, 50},"Quit", quitButton);                  //Quit Button Drawing
+    }
 
-            if (mainMenu)
-            {
-              backButton = false;
-              campaignButton = GuiToggle((Rectangle){200, 150, 100, 50},"Campaign", campaignButton);       //Campaign Button Drawing
-              customButton = GuiToggle((Rectangle){200, 300, 100, 50},"Custom", customButton);             //Custom Button Drawing
-              settingsButton = GuiToggle((Rectangle){200, 450, 100, 50},"Settings", settingsButton);       //Settings Button Drawing 
-              quitButton = GuiToggle((Rectangle){200, 600, 100, 50},"Quit", quitButton);                  //Quit Button Drawing
-            }
+    if (campaignButton)
+    {
+      ChangeScene(1);
+    }
+	if (customButton)
+    {
+		ChangeScene(2);
+    }
+	if (generateButton)
+	{
+		ChangeScene(3);
+	}
+	if (settingsButton)
+	{
+		ChangeScene(4);
+	}
+	if (quitButton)
+	{
+		ChangeScene(5);
+	}
 
-            if (campaignButton)
-            {
-              ChangeScene(1);
-            }
-			if (customButton)
-            {
-				ChangeScene(2);
-            }
-			if (generateButton)
-			{
-				ChangeScene(3);
-			}
-			if (settingsButton)
-			{
-				ChangeScene(4);
-			}
-			if (quitButton)
-			{
-				ChangeScene(5);
-			}
-			
-			
-            
-            
-            
-             
-                                   
-             
-        EndDrawing();
+EndDrawing();
         
     }
 
@@ -143,6 +135,7 @@ void ChangeScene(int Value)
 	
 	case 5:																			// Quit Button 
 		CloseWindow();
+		break;
     
     default:
         break;

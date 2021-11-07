@@ -1,6 +1,4 @@
 #include "include/raylib.h"
-#define FNL_IMPL
-#include"include/FastNoiseLite.h"
 #define RAYGUI_IMPLEMENTATION
 #include"include/raygui.h"
 
@@ -17,6 +15,8 @@
  bool settingsButton = false;
  bool backButton = false;
  bool generateButton = false;
+ bool testButton = false;
+ Texture2D beach;
  
  ////---------------------Structs------------------------//
  Camera2D camera = 
@@ -27,7 +27,6 @@
    .zoom = 2.0f
  };
   Rectangle Rectone = {100, 100, 100, 100};
-
 // //---------------------Function Declaration------------//
  void ChangeScene(int value);
  void CameraOffset(void);
@@ -37,14 +36,13 @@
 int main(void)
 {
 
-
+  
     // Initialization
   InitWindow(screenWidth, screenHeight, "Ultima Thule");
-
-
+  Texture2D beach = LoadTexture("./Assets/sea.png");
 
   SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    
+
     // Main game loop
   while (!WindowShouldClose())    // Detect window close button or ESC key
 {
@@ -63,7 +61,8 @@ BeginDrawing();
       campaignButton = GuiToggle((Rectangle){200, 150, 100, 50},"Campaign", campaignButton);       //Campaign Button Drawing
       customButton = GuiToggle((Rectangle){200, 300, 100, 50},"Custom", customButton);             //Custom Button Drawing
       settingsButton = GuiToggle((Rectangle){200, 450, 100, 50},"Settings", settingsButton);       //Settings Button Drawing 
-      quitButton = GuiToggle((Rectangle){200, 600, 100, 50},"Quit", quitButton);                  //Quit Button Drawing
+      //quitButton = GuiToggle((Rectangle){200, 600, 100, 50},"Quit", quitButton);                  //Quit Button Drawing
+      testButton = GuiToggle((Rectangle){200,600,100,50}, "Texture", testButton);
   }
 
   if (campaignButton)
@@ -77,6 +76,12 @@ BeginDrawing();
 	if (generateButton)
 	{
 		ChangeScene(3);
+    BeginMode2D(camera);
+          CameraZoom();
+          CameraOffset();
+          DrawTexture(beach, 0, 0, WHITE);
+          DrawRectangleRec(Rectone, BLUE);
+    EndMode2D();
 	}
 	if (settingsButton)
 	{
@@ -86,12 +91,14 @@ BeginDrawing();
 	{
 		ChangeScene(5);
 	}
-
-   
+  
+  
 
 EndDrawing();
         
  }
+    
+    UnloadTexture(beach);
     //DeInilization
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
@@ -131,12 +138,7 @@ void ChangeScene(int Value)
 	 	mainMenu = false;
         customButton = false;
         ClearBackground(WHITE);
-        BeginMode2D(camera);
-         CameraZoom();
-         DrawRectangleRec(Rectone, RED);
-         CameraOffset();
-        EndMode2D();
-  
+         
 		backButton = GuiToggle((Rectangle){100, 800, 50, 50}, "Back", backButton);
 
 		  if (backButton)
@@ -167,24 +169,24 @@ void ChangeScene(int Value)
 
 }
 void CameraOffset(void)
-    {
-      if (IsKeyDown(KEY_D))
-        {
-          camera.offset.x += 2.0f;
-        }
-        if (IsKeyDown(KEY_A))
-        {
-          camera.offset.x -= 2.0f;
-        }
-        if (IsKeyDown(KEY_S))
-        {
-          camera.offset.y += 2.0f;
-        }
-        if (IsKeyDown(KEY_W))
-        {
-          camera.offset.y -= 2.0f;
-        } 
-    }
+{
+  if (IsKeyDown(KEY_D))
+  {
+    camera.offset.x += 2.0f;
+  }
+  if (IsKeyDown(KEY_A))
+  {
+    camera.offset.x -= 2.0f;
+  }
+  if (IsKeyDown(KEY_S))
+  {
+    camera.offset.y += 2.0f;
+  }
+  if (IsKeyDown(KEY_W))
+  {
+    camera.offset.y -= 2.0f;
+  } 
+}
 void CameraZoom(void)
 {
   camera.zoom += ((float)GetMouseWheelMove()*0.05f);

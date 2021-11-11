@@ -32,7 +32,6 @@
  void CameraOffset(void);
  void CameraZoom(void);
 
-
 int main(void)
 {
 
@@ -61,8 +60,7 @@ BeginDrawing();
       campaignButton = GuiToggle((Rectangle){200, 150, 100, 50},"Campaign", campaignButton);       //Campaign Button Drawing
       customButton = GuiToggle((Rectangle){200, 300, 100, 50},"Custom", customButton);             //Custom Button Drawing
       settingsButton = GuiToggle((Rectangle){200, 450, 100, 50},"Settings", settingsButton);       //Settings Button Drawing 
-      //quitButton = GuiToggle((Rectangle){200, 600, 100, 50},"Quit", quitButton);                  //Quit Button Drawing
-      testButton = GuiToggle((Rectangle){200,600,100,50}, "Texture", testButton);
+      quitButton = GuiToggle((Rectangle){200, 600, 100, 50},"Quit", quitButton);                  //Quit Button Drawing
   }
 
   if (campaignButton)
@@ -79,8 +77,6 @@ BeginDrawing();
     BeginMode2D(camera);
           CameraZoom();
           CameraOffset();
-          DrawTexture(beach, 0, 0, WHITE);
-          DrawRectangleRec(Rectone, BLUE);
     EndMode2D();
 	}
 	if (settingsButton)
@@ -113,8 +109,11 @@ void ChangeScene(int Value)
     {
     case 1:																			// Campaign Button
         mainMenu = false;
+
         ClearBackground(RED);
+
         backButton = GuiToggle((Rectangle){100, 800, 50, 50}, "Back", backButton);
+
           if (backButton)
           {
             mainMenu = !mainMenu;
@@ -124,9 +123,13 @@ void ChangeScene(int Value)
 
     case 2:																			// Custom Button
 		mainMenu = false;
-        ClearBackground(BLUE);
-        backButton = GuiToggle((Rectangle){100, 800, 50, 50}, "Back", backButton);
-        generateButton  = GuiToggle((Rectangle){200, 500, 100, 50},"Generate", generateButton);
+
+    ClearBackground(BLUE);
+
+    backButton = GuiToggle((Rectangle){100, 800, 50, 50}, "Back", backButton);
+
+    generateButton  = GuiToggle((Rectangle){200, 500, 100, 50},"Generate", generateButton);
+
           if (backButton)
           {
             mainMenu = !mainMenu;
@@ -136,8 +139,10 @@ void ChangeScene(int Value)
 
 	case 3:																			// Generate Button
 	 	mainMenu = false;
-        customButton = false;
-        ClearBackground(WHITE);
+
+    customButton = false;
+
+    ClearBackground(WHITE);
          
 		backButton = GuiToggle((Rectangle){100, 800, 50, 50}, "Back", backButton);
 
@@ -150,7 +155,9 @@ void ChangeScene(int Value)
 
 	case 4:																			// Setting Button
 		mainMenu = false;
+
 		ClearBackground(BLACK);
+
 		backButton = GuiToggle((Rectangle){100, 800, 50, 50}, "Back", backButton);
 		  if (backButton)
 		  {
@@ -185,7 +192,17 @@ void CameraOffset(void)
   if (IsKeyDown(KEY_W))
   {
     camera.offset.y -= 2.0f;
-  } 
+  }
+  if (camera.offset.x>300.0f)
+  {
+    camera.offset.x = 300.0f;
+  }
+  if (camera.offset.x<-300.0f)
+  {
+    camera.offset.x = -300.0f;
+  }
+  
+  
 }
 void CameraZoom(void)
 {

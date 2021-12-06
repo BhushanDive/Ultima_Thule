@@ -18,7 +18,8 @@
  bool testButton = false;
  Texture2D beach;
  
- ////---------------------Structs------------------------//
+
+ // Structs
  Camera2D camera = 
  {
    .offset = {1.0f, 1.0f},
@@ -26,11 +27,14 @@
    .rotation = 0.0f,
    .zoom = 2.0f
  };
-  Rectangle Rectone = {100, 100, 100, 100};
-// //---------------------Function Declaration------------//
+ Rectangle Rectone = {100, 100, 100, 100};
+
+
+//Function eclarations
  void ChangeScene(int value);
  void CameraOffset(void);
  void CameraZoom(void);
+
 
 int main(void)
 {
@@ -63,26 +67,34 @@ BeginDrawing();
       quitButton = GuiToggle((Rectangle){200, 600, 100, 50},"Quit", quitButton);                  //Quit Button Drawing
   }
 
-  if (campaignButton)
-  {
+    if (campaignButton)
+    {
     ChangeScene(1);
-  }
+    }
+
 	if (customButton)
-  {
+    {
 	  ChangeScene(2);
-  }
+    }
+
 	if (generateButton)
 	{
+
 		ChangeScene(3);
     BeginMode2D(camera);
+
           CameraZoom();
+
           CameraOffset();
+
     EndMode2D();
 	}
+
 	if (settingsButton)
 	{
 		ChangeScene(4);
 	}
+
 	if (quitButton)
 	{
 		ChangeScene(5);
@@ -119,30 +131,32 @@ void ChangeScene(int Value)
             mainMenu = !mainMenu;
             campaignButton = !campaignButton;
           }
+		  
         break;
 
     case 2:																			// Custom Button
 		mainMenu = false;
 
-    ClearBackground(BLUE);
+    	ClearBackground(BLUE);
 
-    backButton = GuiToggle((Rectangle){100, 800, 50, 50}, "Back", backButton);
+    	backButton = GuiToggle((Rectangle){100, 800, 50, 50}, "Back", backButton);
 
-    generateButton  = GuiToggle((Rectangle){200, 500, 100, 50},"Generate", generateButton);
+    	generateButton  = GuiToggle((Rectangle){200, 500, 100, 50},"Generate", generateButton);
 
           if (backButton)
           {
             mainMenu = !mainMenu;
             customButton = !customButton;
           }
+
 		break;
 
 	case 3:																			// Generate Button
 	 	mainMenu = false;
 
-    customButton = false;
+    	customButton = false;
 
-    ClearBackground(WHITE);
+    	ClearBackground(WHITE);
          
 		backButton = GuiToggle((Rectangle){100, 800, 50, 50}, "Back", backButton);
 
